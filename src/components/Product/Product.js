@@ -3,15 +3,13 @@ import clsx from 'clsx';
 import Button from '../Button/Button';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import shortid from 'shortid';
 
 const Product = (props) => {
-  const [currentProduct, /*setCurrentProduct*/] = useState({
-    currentColor: props.data.colors[0],
-    currentSize: props.data.sizes[0].name,
-    currentChoise: 'false',
-  })
+  const [currentColor, setCuurentColor] = useState(props.data.colors[0]);
+  const [currentSize, setCurrentSize] = useState(props.data.sizes[0].name);
 
-  console.log(currentProduct);
+  console.log(currentColor, currentSize);
 
   return (
     <article className={styles.product}>
@@ -19,7 +17,7 @@ const Product = (props) => {
         <img
           className={styles.image}
           alt={props.data.t}
-          src={`${process.env.PUBLIC_URL}/images/products/shirt-${props.data.name}--${currentProduct.currentColor}.jpg`}
+          src={`${process.env.PUBLIC_URL}/images/products/shirt-${props.data.name}--${currentColor}.jpg`}
         />
       </div>
       <div>
@@ -31,20 +29,11 @@ const Product = (props) => {
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
-              <li>
-                <button type='button' className={styles.active}>
-                  S
-                </button>
+              {props.data.sizes.map(size => 
+              <li key={shortid()}>
+                <button type='button' className={styles.active}>{`${size.name}`}</button>
               </li>
-              <li>
-                <button type='button'>M</button>
-              </li>
-              <li>
-                <button type='button'>L</button>
-              </li>
-              <li>
-                <button type='button'>XL</button>
-              </li>
+              )}
             </ul>
           </div>
           <div className={styles.colors}>
