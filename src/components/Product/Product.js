@@ -11,9 +11,11 @@ const Product = (props) => {
 
   console.log(currentColor, currentSize);
 
-  const prepareColorClassName = color => {
-    return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
-  }
+  const prepareColorClassName = (color) => {
+    return styles[
+      'color' + color[0].toUpperCase() + color.substr(1).toLowerCase()
+    ];
+  };
 
   return (
     <article className={styles.product}>
@@ -37,7 +39,10 @@ const Product = (props) => {
                 <li key={shortid()}>
                   <button
                     type='button'
-                    className={styles.active}>{`${size.name}`}</button>
+                    className={
+                      (size.name, currentSize === size.name && styles.active)
+                    }
+                    onClick={() => setCurrentSize(size.name)}>{`${size.name}`}</button>
                 </li>
               ))}
             </ul>
@@ -45,10 +50,16 @@ const Product = (props) => {
           <div className={styles.colors}>
             <h3 className={styles.optionLabel}>Colors</h3>
             <ul className={styles.choices}>
-            {props.data.colors.map((color) => (
+              {props.data.colors.map((color) => (
                 <li key={shortid()}>
                   <button
-                    button type="button" className={clsx(prepareColorClassName(color), styles.active)}></button>
+                    button
+                    type='button'
+                    className={clsx(
+                      prepareColorClassName(color),
+                      currentColor === color && styles.active
+                    )}
+                    onClick={() => setCuurentColor(color)}></button>
                 </li>
               ))}
             </ul>
