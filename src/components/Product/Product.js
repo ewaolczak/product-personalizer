@@ -11,6 +11,10 @@ const Product = (props) => {
 
   console.log(currentColor, currentSize);
 
+  const prepareColorClassName = color => {
+    return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
+  }
+
   return (
     <article className={styles.product}>
       <div className={styles.imageContainer}>
@@ -29,28 +33,24 @@ const Product = (props) => {
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
-              {props.data.sizes.map(size => 
-              <li key={shortid()}>
-                <button type='button' className={styles.active}>{`${size.name}`}</button>
-              </li>
-              )}
+              {props.data.sizes.map((size) => (
+                <li key={shortid()}>
+                  <button
+                    type='button'
+                    className={styles.active}>{`${size.name}`}</button>
+                </li>
+              ))}
             </ul>
           </div>
           <div className={styles.colors}>
             <h3 className={styles.optionLabel}>Colors</h3>
             <ul className={styles.choices}>
-              <li>
-                <button
-                  type='button'
-                  className={clsx(styles.colorBlack, styles.active)}
-                />
-              </li>
-              <li>
-                <button type='button' className={clsx(styles.colorRed)} />
-              </li>
-              <li>
-                <button type='button' className={clsx(styles.colorWhite)} />
-              </li>
+            {props.data.colors.map((color) => (
+                <li key={shortid()}>
+                  <button
+                    button type="button" className={clsx(prepareColorClassName(color), styles.active)}></button>
+                </li>
+              ))}
             </ul>
           </div>
           <Button className={styles.button}>
