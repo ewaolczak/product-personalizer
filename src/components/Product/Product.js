@@ -8,7 +8,9 @@ import shortid from 'shortid';
 const Product = (props) => {
   const [currentColor, setCuurentColor] = useState(props.data.colors[0]);
   const [currentSize, setCurrentSize] = useState(props.data.sizes[0].name);
-  const [currentPrice, setCuurentPrice] = useState(props.data.sizes[0].additionalPrice);
+  const [currentPrice, setCuurentPrice] = useState(
+    props.data.sizes[0].additionalPrice
+  );
 
   console.log(currentColor, currentSize, currentPrice);
 
@@ -21,6 +23,15 @@ const Product = (props) => {
   const getPrice = () => {
     return props.data.basePrice + currentPrice;
   };
+
+  const productToBasket = {
+    Name: props.data.title,
+    Price: getPrice(),
+    Size: currentSize,
+    Color: currentColor
+  };
+
+  console.log(productToBasket);
 
   return (
     <article className={styles.product}>
@@ -72,7 +83,9 @@ const Product = (props) => {
               ))}
             </ul>
           </div>
-          <Button className={styles.button}>
+          <Button
+            action={console.log('Summary', productToBasket)}
+            className={styles.button}>
             <span className='fa fa-shopping-cart' />
           </Button>
         </form>
