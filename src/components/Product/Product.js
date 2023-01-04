@@ -8,13 +8,18 @@ import shortid from 'shortid';
 const Product = (props) => {
   const [currentColor, setCuurentColor] = useState(props.data.colors[0]);
   const [currentSize, setCurrentSize] = useState(props.data.sizes[0].name);
+  const [currentPrice, setCuurentPrice] = useState(props.data.sizes[0].additionalPrice);
 
-  console.log(currentColor, currentSize);
+  console.log(currentColor, currentSize, currentPrice);
 
   const prepareColorClassName = (color) => {
     return styles[
       'color' + color[0].toUpperCase() + color.substr(1).toLowerCase()
     ];
+  };
+
+  const getPrice = () => {
+    return props.data.basePrice + currentPrice;
   };
 
   return (
@@ -29,7 +34,7 @@ const Product = (props) => {
       <div>
         <header>
           <h2 className={styles.name}>{props.data.title}</h2>
-          <span className={styles.price}>Price: {props.data.basePrice}$</span>
+          <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
         <form>
           <div className={styles.sizes}>
@@ -42,7 +47,10 @@ const Product = (props) => {
                     className={
                       (size.name, currentSize === size.name && styles.active)
                     }
-                    onClick={() => setCurrentSize(size.name)}>{`${size.name}`}</button>
+                    onClick={() => {
+                      setCurrentSize(size.name);
+                      setCuurentPrice(size.additionalPrice);
+                    }}>{`${size.name}`}</button>
                 </li>
               ))}
             </ul>
