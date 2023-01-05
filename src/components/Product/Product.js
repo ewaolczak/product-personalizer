@@ -6,9 +6,9 @@ import { useState } from 'react';
 import shortid from 'shortid';
 
 const Product = (props) => {
-  const [currentColor, setCuurentColor] = useState(props.data.colors[0]);
+  const [currentColor, setCurrentColor] = useState(props.data.colors[0]);
   const [currentSize, setCurrentSize] = useState(props.data.sizes[0].name);
-  const [currentPrice, setCuurentPrice] = useState(
+  const [currentPrice, setCurrentPrice] = useState(
     props.data.sizes[0].additionalPrice
   );
 
@@ -24,11 +24,16 @@ const Product = (props) => {
     return props.data.basePrice + currentPrice;
   };
 
-  const productToBasket = {
-    Name: props.data.title,
-    Price: getPrice(),
-    Size: currentSize,
-    Color: currentColor
+  const title = props.data.title;
+
+  const productToBasket = props => {
+    return console.log(
+      'Summary\n',
+      '========\n',
+    'Name: ', title, '\n',
+    'Price: ', getPrice(), '\n',
+    'Size: ', currentSize, '\n',
+    'Color: ', currentColor)
   };
 
   return (
@@ -54,11 +59,11 @@ const Product = (props) => {
                   <button
                     type='button'
                     className={
-                      (size.name, currentSize === size.name && styles.active)
+                      (currentSize === size.name && styles.active, size.name)
                     }
                     onClick={() => {
                       setCurrentSize(size.name);
-                      setCuurentPrice(size.additionalPrice);
+                      setCurrentPrice(size.additionalPrice);
                     }}>{`${size.name}`}</button>
                 </li>
               ))}
@@ -70,28 +75,21 @@ const Product = (props) => {
               {props.data.colors.map((color) => (
                 <li key={shortid()}>
                   <button
-                    button
                     type='button'
                     className={clsx(
                       prepareColorClassName(color),
                       currentColor === color && styles.active
                     )}
-                    onClick={() => setCuurentColor(color)}></button>
+                    onClick={() => setCurrentColor(color)}></button>
                 </li>
               ))}
             </ul>
           </div>
           <Button
-            onClick={Window.call.apply((e) => {
+            onClick={(e) => {
               e.preventDefault();
-              console.log(
-                'Summary',
-                '\n',
-                '==========================',
-                '\n',
-                productToBasket
-              );
-            })}
+              productToBasket()
+            }}
             className={styles.button}>
             <span className='fa fa-shopping-cart' />
           </Button>
