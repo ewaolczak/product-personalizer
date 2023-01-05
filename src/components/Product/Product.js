@@ -26,14 +26,22 @@ const Product = (props) => {
 
   const title = props.data.title;
 
-  const productToBasket = props => {
+  const productToBasket = (props) => {
     return console.log(
       'Summary\n',
       '========\n',
-    'Name: ', title, '\n',
-    'Price: ', getPrice(), '\n',
-    'Size: ', currentSize, '\n',
-    'Color: ', currentColor)
+      'Name: ',
+      title,
+      '\n',
+      'Price: ',
+      getPrice(),
+      '\n',
+      'Size: ',
+      currentSize,
+      '\n',
+      'Color: ',
+      currentColor
+    );
   };
 
   return (
@@ -59,7 +67,9 @@ const Product = (props) => {
                   <button
                     type='button'
                     className={
-                      (currentSize === size.name && styles.active, size.name)
+                      size.name && currentSize === size.name
+                        ? styles.active
+                        : undefined
                     }
                     onClick={() => {
                       setCurrentSize(size.name);
@@ -78,7 +88,7 @@ const Product = (props) => {
                     type='button'
                     className={clsx(
                       prepareColorClassName(color),
-                      currentColor === color && styles.active
+                      currentColor === color ? styles.active : undefined
                     )}
                     onClick={() => setCurrentColor(color)}></button>
                 </li>
@@ -88,7 +98,7 @@ const Product = (props) => {
           <Button
             onClick={(e) => {
               e.preventDefault();
-              productToBasket()
+              productToBasket();
             }}
             className={styles.button}>
             <span className='fa fa-shopping-cart' />
