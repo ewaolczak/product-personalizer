@@ -31,8 +31,6 @@ const Product = (props) => {
     Color: currentColor
   };
 
-  console.log(productToBasket);
-
   return (
     <article className={styles.product}>
       <div className={styles.imageContainer}>
@@ -84,7 +82,16 @@ const Product = (props) => {
             </ul>
           </div>
           <Button
-            action={console.log('Summary', productToBasket)}
+            onClick={Window.call.apply((e) => {
+              e.preventDefault();
+              console.log(
+                'Summary',
+                '\n',
+                '==========================',
+                '\n',
+                productToBasket
+              );
+            })}
             className={styles.button}>
             <span className='fa fa-shopping-cart' />
           </Button>
