@@ -58,7 +58,11 @@ const Product = (props) => {
           <h2 className={styles.name}>{props.data.title}</h2>
           <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
-        <form>
+        <form
+          onClick={(e) => {
+            e.preventDefault();
+          }}
+          >
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
@@ -96,10 +100,8 @@ const Product = (props) => {
             </ul>
           </div>
           <Button
-            onClick={(e) => {
-              e.preventDefault();
-              productToBasket();
-            }}
+            type='button'
+            onClick={productToBasket}
             className={styles.button}>
             <span className='fa fa-shopping-cart' />
           </Button>
