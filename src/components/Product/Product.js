@@ -16,15 +16,14 @@ const Product = (props) => {
 
   console.log(currentColor, currentSize, currentPrice);
 
-  
-
   const getPrice = () => {
     return props.data.basePrice + currentPrice;
   };
 
   const title = props.data.title;
 
-  const productToBasket = (props) => {
+  const productToBasket = (e) => {
+    e.preventDefault();
     return console.log(
       'Summary\n',
       '========\n',
@@ -50,7 +49,7 @@ const Product = (props) => {
           <h2 className={styles.name}>{props.data.title}</h2>
           <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
-        <form>
+        <form onSubmit={productToBasket}>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
@@ -71,14 +70,8 @@ const Product = (props) => {
               ))}
             </ul>
           </div>
-          <OptionColor colors={props.data.colors}/>
-          <Button
-            type='button'
-            className={styles.button}
-            onClick={(e) => {
-              e.preventDefault();
-              productToBasket();
-            }}>
+          <OptionColor colors={props.data.colors} />
+          <Button className={styles.button}>
             <span className='fa fa-shopping-cart' />
           </Button>
         </form>
