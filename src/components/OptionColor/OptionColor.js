@@ -3,7 +3,7 @@ import styles from './OptionColor.module.scss';
 import shortid from 'shortid';
 import clsx from 'clsx';
 
-function OptionColor(props) {
+const OptionColor = (props) => {
   const prepareColorClassName = (color) => {
     return styles[
       'color' + color[0].toUpperCase() + color.substr(1).toLowerCase()
