@@ -70,7 +70,7 @@ const Product = (props) => {
               ))}
             </ul>
           </div>
-          <OptionColor colors={props.colors} />
+          <OptionColor colors={props.colors} setCurrentColor={setCurrentColor} />
           <Button className={styles.button}>
             <span className='fa fa-shopping-cart' />
           </Button>
