@@ -8,19 +8,19 @@ import OptionColor from '../OptionColor/OptionColor';
 
 const Product = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const [currentColor, setCurrentColor] = useState(props.data.colors[0]);
-  const [currentSize, setCurrentSize] = useState(props.data.sizes[0].name);
+  const [currentColor, setCurrentColor] = useState(props.colors[0]);
+  const [currentSize, setCurrentSize] = useState(props.sizes[0].name);
   const [currentPrice, setCurrentPrice] = useState(
-    props.data.sizes[0].additionalPrice
+    props.sizes[0].additionalPrice
   );
 
   console.log(currentColor, currentSize, currentPrice);
 
   const getPrice = () => {
-    return props.data.basePrice + currentPrice;
+    return props.basePrice + currentPrice;
   };
 
-  const title = props.data.title;
+  const title = props.title;
 
   const productToBasket = (e) => {
     e.preventDefault();
@@ -43,17 +43,17 @@ const Product = (props) => {
 
   return (
     <article className={styles.product}>
-      <ProductImage name={props.data.name} color={currentColor} />
+      <ProductImage name={props.name} color={currentColor} />
       <div>
         <header>
-          <h2 className={styles.name}>{props.data.title}</h2>
+          <h2 className={styles.name}>{props.title}</h2>
           <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
         <form onSubmit={productToBasket}>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
-              {props.data.sizes.map((size) => (
+              {props.sizes.map((size) => (
                 <li key={shortid()}>
                   <button
                     type='button'
@@ -70,7 +70,7 @@ const Product = (props) => {
               ))}
             </ul>
           </div>
-          <OptionColor colors={props.data.colors} />
+          <OptionColor colors={props.colors} />
           <Button className={styles.button}>
             <span className='fa fa-shopping-cart' />
           </Button>
