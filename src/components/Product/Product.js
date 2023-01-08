@@ -1,6 +1,6 @@
 import styles from './Product.module.scss';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import ProductImage from '../ProductImage/ProductImage';
 import ProductForm from '../ProductForm/ProductForm';
 
@@ -14,9 +14,11 @@ const Product = (props) => {
 
   console.log(currentColor, currentSize, currentPrice);
 
-  const getPrice = () => {
-    return props.basePrice + currentPrice;
+  const getPrice = (a, b) => {
+    return a + b;
   };
+
+  const totalPrice = useMemo(() => getPrice(props.basePrice, currentPrice), [props.basePrice, currentPrice])
 
   const title = props.title;
 
@@ -29,7 +31,7 @@ const Product = (props) => {
       title,
       '\n',
       'Price: ',
-      getPrice(),
+      totalPrice,
       '\n',
       'Size: ',
       currentSize,
@@ -45,7 +47,7 @@ const Product = (props) => {
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {getPrice()} $</span>
+          <span className={styles.price}>Price: {totalPrice} $</span>
         </header>
         <ProductForm
           sizes={props.sizes}
