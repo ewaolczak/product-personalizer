@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import shortid from 'shortid';
 import productsData from '../../data/products';
 import Product from '../Product/Product';
 
@@ -9,7 +8,7 @@ const Products = () => {
   return (
     <section>
       {products.map(product =>
-        <Product key={shortid()} {...product} />)}
+        <Product {...product} />)}
     </section>
   );
 };

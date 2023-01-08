@@ -1,10 +1,8 @@
 import styles from './Product.module.scss';
-import Button from '../Button/Button';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import shortid from 'shortid';
 import ProductImage from '../ProductImage/ProductImage';
-import OptionColor from '../OptionColor/OptionColor';
+import ProductForm from '../ProductForm/ProductForm';
 
 const Product = (props) => {
   // eslint-disable-next-line no-unused-vars
@@ -20,61 +18,28 @@ const Product = (props) => {
     return props.basePrice + currentPrice;
   };
 
-  const title = props.title;
-
-  const productToBasket = (e) => {
-    e.preventDefault();
-    return console.log(
-      'Summary\n',
-      '========\n',
-      'Name: ',
-      title,
-      '\n',
-      'Price: ',
-      getPrice(),
-      '\n',
-      'Size: ',
-      currentSize,
-      '\n',
-      'Color: ',
-      currentColor
-    );
-  };
-
   return (
     <article className={styles.product}>
       <ProductImage name={props.name} color={currentColor} />
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {getPrice()}$</span>
+          <span className={styles.price}>Price: {getPrice()} $</span>
         </header>
-        <form onSubmit={productToBasket}>
-          <div className={styles.sizes}>
-            <h3 className={styles.optionLabel}>Sizes</h3>
-            <ul className={styles.choices}>
-              {props.sizes.map((size) => (
-                <li key={shortid()}>
-                  <button
-                    type='button'
-                    className={
-                      size.name && currentSize === size.name
-                        ? styles.active
-                        : undefined
-                    }
-                    onClick={() => {
-                      setCurrentSize(size.name);
-                      setCurrentPrice(size.additionalPrice);
-                    }}>{`${size.name}`}</button>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <OptionColor colors={props.colors} setCurrentColor={setCurrentColor} />
-          <Button className={styles.button}>
-            <span className='fa fa-shopping-cart' />
-          </Button>
-        </form>
+        <ProductForm
+          sizes={props.sizes}
+          size={props.size}
+          currentSize={currentSize}
+          setCurrentSize={setCurrentSize}
+          price={props.price}
+          additionalPrice={props.additionalPrice}
+          setCurrentPrice={setCurrentPrice}
+          colors={props.colors}
+          currentColor={currentColor}
+          setCurrentColor={setCurrentColor}
+          productToBasket={props.productToBasket}
+          onClick={props.onClick}
+        />
       </div>
     </article>
   );
