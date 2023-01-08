@@ -18,6 +18,27 @@ const Product = (props) => {
     return props.basePrice + currentPrice;
   };
 
+  const title = props.title;
+
+  const productToBasket = (e) => {
+    e.preventDefault();
+    return console.log(
+      'Summary\n',
+      '========\n',
+      'Name: ',
+      title,
+      '\n',
+      'Price: ',
+      getPrice(),
+      '\n',
+      'Size: ',
+      currentSize,
+      '\n',
+      'Color: ',
+      currentColor
+    );
+  };
+
   return (
     <article className={styles.product}>
       <ProductImage name={props.name} color={currentColor} />
@@ -37,7 +58,7 @@ const Product = (props) => {
           colors={props.colors}
           currentColor={currentColor}
           setCurrentColor={setCurrentColor}
-          productToBasket={props.productToBasket}
+          productToBasket={productToBasket}
           onClick={props.onClick}
         />
       </div>

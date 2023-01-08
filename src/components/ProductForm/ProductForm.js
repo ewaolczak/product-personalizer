@@ -5,33 +5,8 @@ import OptionSize from '../OptionSize/OptionSize';
 import styles from './ProductForm.module.scss';
 
 const ProductForm = (props) => {
-  const title = props.title;
-
-  const getPrice = () => {
-    return props.basePrice + props.currentPrice;
-  };
-
-  const productToBasket = (e) => {
-    e.preventDefault();
-    return console.log(
-      'Summary\n',
-      '========\n',
-      'Name: ',
-      title,
-      '\n',
-      'Price: ',
-      getPrice(),
-      '\n',
-      'Size: ',
-      props.currentSize,
-      '\n',
-      'Color: ',
-      props.currentColor
-    );
-  };
-
   return (
-    <form onSubmit={productToBasket}>
+    <form onSubmit={props.productToBasket}>
       <OptionSize
         sizes={props.sizes}
         size={props.size}
